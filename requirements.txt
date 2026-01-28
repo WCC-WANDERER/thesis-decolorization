@@ -1,7 +1,8 @@
 numpy
 opencv-python
 scikit-image
-pillow
 scipy
 matplotlib
 pandas
+numba
+pillow

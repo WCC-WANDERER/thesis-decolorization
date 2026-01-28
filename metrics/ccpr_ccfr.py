@@ -47,32 +47,27 @@ def ccfr(color_img, gray_img, tau_gray=0.03, tau_lab=7.0, q=1/3.0):
     lab = rgb2lab(color_img)
     gray = np.squeeze(gray_img)
 
-    # Horizontal differences
-    lab_diff_h = np.sqrt(
-        q * (lab[:, :-1, 0] - lab[:, 1:, 0])**2 +
-        (lab[:, :-1, 1] - lab[:, 1:, 1])**2 +
-        (lab[:, :-1, 2] - lab[:, 1:, 2])**2
-    )
+    # Calculate color differences (Lab) and gray differences
+    # Horizontal
+    lab_diff_h = np.sqrt(q * (lab[:, :-1, 0] - lab[:, 1:, 0])**2 + (lab[:, :-1, 1] - lab[:, 1:, 1])**2 + (lab[:, :-1, 2] - lab[:, 1:, 2])**2)
     gray_diff_h = np.abs(gray[:, :-1] - gray[:, 1:])
-
-    # Vertical differences
-    lab_diff_v = np.sqrt(
-        q * (lab[:-1, :, 0] - lab[1:, :, 0])**2 +
-        (lab[:-1, :, 1] - lab[1:, :, 1])**2 +
-        (lab[:-1, :, 2] - lab[1:, :, 2])**2
-    )
+    # Vertical
+    lab_diff_v = np.sqrt(q * (lab[:-1, :, 0] - lab[1:, :, 0])**2 + (lab[:-1, :, 1] - lab[1:, :, 1])**2 + (lab[:-1, :, 2] - lab[1:, :, 2])**2)
     gray_diff_v = np.abs(gray[:-1, :] - gray[1:, :])
 
-    # Horizontal CCFR
-    mask_h = gray_diff_h > tau_gray
-    bad_h = np.sum((lab_diff_h <= tau_lab) & mask_h)
-    total_h = np.sum(mask_h)
+    # Define Theta: Smooth pairs in the original color image
+    is_smooth_h = lab_diff_h <= tau_lab
+    is_smooth_v = lab_diff_v <= tau_lab
 
-    # Vertical CCFR
-    mask_v = gray_diff_v > tau_gray
-    bad_v = np.sum((lab_diff_v <= tau_lab) & mask_v)
-    total_v = np.sum(mask_v)
+    # Identify Artifacts: Smooth in color but visible edge in gray (> tau)
+    bad_h = np.sum(is_smooth_h & (gray_diff_h > tau_gray))
+    bad_v = np.sum(is_smooth_v & (gray_diff_v > tau_gray))
 
-    if total_h + total_v == 0:
+    # Denominator: Total number of smooth pairs (Theta)
+    total_theta = np.sum(is_smooth_h) + np.sum(is_smooth_v)
+
+    if total_theta == 0:
         return 1.0
-    return 1.0 - (bad_h + bad_v) / (total_h + total_v)
+    
+    # Final CCFR calculation
+    return 1.0 - (bad_h + bad_v) / total_theta
