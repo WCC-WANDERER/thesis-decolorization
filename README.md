@@ -18,12 +18,12 @@ This framework automates the batch processing of images and generates objective 
 
 | Category | Method | Description |
 | :--- | :--- | :--- |
-| **Linear** | **Average** | Simple arithmetic mean of RGB channels. |
-| | **Luminance** | Standard Rec. 601 luminance calculation ($0.299R + 0.587G + 1.114B$). |
-| | **CIELAB** | Uses the L* channel from the CIELAB color space. |
-| **Non-Linear** | **Grundland-Dodgson (GD)** | Maximizes contrast via predominant chromatic channels. |
-| | **CorrC2G** | Correlation-based approach. |
-| | **Color2Gray** | Optimization-based approach using neighbor pixel differences. |
+| **Linear** | **Average** | Arithmetic mean of RGB channels. |
+| | **Luminance** | Rec. 601: $0.299R + 0.587G + 1.114B$. |
+| | **CIELAB** | $L^*$ channel from the CIELAB color space. |
+| **Non-Linear** | **GD** | Contrast maximization via chromatic channels. |
+| | **CorrC2G** | Correlation-based mapping approach. |
+| | **Color2Gray** | Optimization using neighbor pixel differences. |
 
 ## Evaluation Metrics
 
