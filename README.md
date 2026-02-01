@@ -42,10 +42,11 @@ The project is written in Python. You can install the required dependencies usin
 ```bash
 # Clone the repository
 git clone https://github.com/WCC-WANDERER/thesis-decolorization
-cd your-repo-name
+cd thesis-decolorization
 
 # Install dependencies
 pip install -r requirements.txt
+```
 
 ## Dataset
 
@@ -60,6 +61,8 @@ To run the full comparative analysis:
 2. Run the main execution script:
 ```bash
 python run_all.py
+```
 3. Plot the metrics reuslt:
 ```bash
 python plot_metrics_all.py
+```
