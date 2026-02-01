@@ -2,6 +2,13 @@ import numpy as np
 from skimage.transform import resize
 
 def corrc2g(img, r=256):
+    """
+    Correlation-based Color-to-Gray (CorrC2G) conversion.  
+    img: HxWx3 RGB uint8
+    r: Resizing factor for fast weight computation
+    returns: HxW uint8 grayscale
+    """
+
     # img: uint8 RGB (H,W,3)
     img = img.astype(np.float64) / 255.0
     h, w, _ = img.shape
@@ -47,7 +54,6 @@ def corrc2g(img, r=256):
     def compute_lambda(Rho):
         den = Rho.max() - Rho.min()
         Gamma = np.zeros_like(Rho) if den < 1e-12 else (Rho - Rho.min()) / den - 0.5
-        #Gamma = (Rho - Rho.min()) / (Rho.max() - Rho.min()) - 0.5
         beta = np.abs(Rho)
         beta = beta / beta.sum()
         lam = beta + np.minimum(beta, Gamma)

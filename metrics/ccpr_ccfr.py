@@ -1,10 +1,12 @@
-# ccpr_ccfr.py
 import numpy as np
 from skimage.color import rgb2lab
 
 def ccpr(color_img, gray_img, tau_gray=0.03, tau_lab=7.0, q=1/3.0):
     """
-    Contrast-Preserving Pixel Ratio (CCPR)
+    CCPR: Color Contrast Preserving Ratio
+    color_img: H x W x 3 float (0..1)
+    gray_img : H x W or H x W x 1 float (0..1)
+    returns: float value of ratio of color edges preserved in grayscale (0..1)
     """
     lab = rgb2lab(color_img)
     gray = np.squeeze(gray_img)
@@ -42,16 +44,19 @@ def ccpr(color_img, gray_img, tau_gray=0.03, tau_lab=7.0, q=1/3.0):
 
 def ccfr(color_img, gray_img, tau_gray=0.03, tau_lab=7.0, q=1/3.0):
     """
-    Color Content Fidelity Ratio (CCFR)
+    CCFR: Color Content Fidelity Ratio
+    color_img: H x W x 3 float (0..1)
+    gray_img : H x W or H x W x 1 float (0..1)
+    returns: float value of probability of smooth color regions remaining artifact-free (0..1)
     """
     lab = rgb2lab(color_img)
     gray = np.squeeze(gray_img)
 
-    # Calculate color differences (Lab) and gray differences
-    # Horizontal
+    # Horizontal differences
     lab_diff_h = np.sqrt(q * (lab[:, :-1, 0] - lab[:, 1:, 0])**2 + (lab[:, :-1, 1] - lab[:, 1:, 1])**2 + (lab[:, :-1, 2] - lab[:, 1:, 2])**2)
     gray_diff_h = np.abs(gray[:, :-1] - gray[:, 1:])
-    # Vertical
+
+    # Vertical differences
     lab_diff_v = np.sqrt(q * (lab[:-1, :, 0] - lab[1:, :, 0])**2 + (lab[:-1, :, 1] - lab[1:, :, 1])**2 + (lab[:-1, :, 2] - lab[1:, :, 2])**2)
     gray_diff_v = np.abs(gray[:-1, :] - gray[1:, :])
 

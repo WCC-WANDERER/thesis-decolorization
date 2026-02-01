@@ -60,9 +60,6 @@ def decolorize(img, scale=None, effect=.5, noise=.001):
     axis = w * contrast_dir
     axis = np.multiply(delta[1:3, :], np.array([axis, axis]))
     axis = np.sum(axis, axis=1)
-    #axis = w*contrast_dir
-    #axis = axis * delta[1:3,:]
-    #axis = np.sum(axis, axis=0)
     
     proj = YPQ[1,:]*axis[0] + YPQ[2,:]*axis[1]
     proj = proj / (np.quantile(np.abs(proj), 1-noise) + 1e-14)

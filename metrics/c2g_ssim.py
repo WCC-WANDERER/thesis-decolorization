@@ -7,6 +7,7 @@ def c2g_ssim(color_img, gray_img):
     C2G-SSIM: Color-to-Gray Structural SIMilarity
     color_img: H x W x 3 float (0..1)
     gray_img : H x W or H x W x 1 float (0..1)
+    returns: float: The mean SSIM value capped between 0 and 1
     """
 
     # Convert to float and ensure shapes
@@ -37,4 +38,4 @@ def c2g_ssim(color_img, gray_img):
                 (sigma_l + sigma_g + C2))
 
     return float(np.clip(np.mean(ssim_map), 0, 1))
-    #return np.clip(np.mean(ssim_map), 0, 1)
+

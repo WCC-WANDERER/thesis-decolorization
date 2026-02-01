@@ -4,7 +4,7 @@ import numpy as np
 def lab_l_gray(img):
     """
     L* channel from LAB color space
-    LAB L is in range 0..100 so we rescale to 0..255
+    LAB L is in range 0..100 so it is rescaled to 0..255
     img: numpy RGB
     """
     lab = rgb2lab(img)

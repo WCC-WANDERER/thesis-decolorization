@@ -2,14 +2,10 @@ import numpy as np
 
 def nrms(original_rgb, gray):
     """
-    Correct NRMS implementation according to literature:
-    
-    NRMS = 1/3 * Σ_C ||I_C - Y|| / ||I_C||
-    
-    where:
-      - I_C is channel R,G,B from original image
-      - Y is grayscale image
-      - ||·|| is Frobenius norm
+    NRMS: Normalized Root Mean Square
+    original_rgb: H x W x 3 float (0..1)
+    gray: H x W or H x W x 1 float (0..1)
+    returns: float value of average Frobenius norm difference across color channels
     """
 
     # Ensure float

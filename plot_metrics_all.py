@@ -52,7 +52,7 @@ def main():
     df_all = load_all_csv(CSV_PATTERN)
     df_all["Method_display"] = df_all["Method"].map(METHOD_NAME_MAP)
 
-    # Map DataFrame columns to pretty titles
+    # Map DataFrame columns to correct titles
     metrics_map = {
         "Time(sec)": "Time(sec)",
         "RMS": "RMS",

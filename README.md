@@ -19,7 +19,7 @@ This framework automates the batch processing of images and generates objective 
 | Category | Method | Description |
 | :--- | :--- | :--- |
 | **Linear** | **Average** | Arithmetic mean of RGB channels. |
-| | **Luminance** | Rec. 601: $0.299R + 0.587G + 1.114B$. |
+| | **Luminance** | Rec. 601: $0.299R + 0.587G + 0.114B$. |
 | | **CIELAB** | $L^*$ channel from the CIELAB color space. |
 | **Non-Linear** | **GD** | Contrast maximization via chromatic channels. |
 | | **CorrC2G** | Correlation-based mapping approach. |
@@ -47,3 +47,19 @@ cd your-repo-name
 # Install dependencies
 pip install -r requirements.txt
 
+## Dataset
+
+The dataset used in this study consists of 30 high-quality book cover images across various genres. 
+* **Input Directory:** `/data/input/` contains the original RGB images.
+* **Output Directory:** `/data/output/` is where the framework stores the processed grayscale results.
+
+## Usage
+To run the full comparative analysis:
+
+1. Place your images in the `data/input/` folder.
+2. Run the main execution script:
+```bash
+python run_all.py
+3. Plot the metrics reuslt:
+```bash
+python plot_metrics_all.py

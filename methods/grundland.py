@@ -7,16 +7,12 @@ def grundland_decolor(np_img):
     Output: gray = HxW uint8 from Grundland & Dodgson
     """
 
-    # decolorize() expects filename OR an RGB float image.
-    # But in their code they read with mpimg, so we adapt:
-    # We'll temporarily save to float image in [0..1]
+    # decolorize() expects filename OR an RGB float image, therefore:
+    # Temporarily save the image to float image in [0..1]
     img_float = np_img.astype(np.float32) / 255.0
 
     # Call the original algorithm
     G = decolorize(img_float)   # (H,W,3) float [0..1]
-
-    # Extract G channel (recommended)
-    #G = glc[:, :, 0]
 
     # Convert to uint8 0..255
     Gray_uint8 = (G * 255).clip(0, 255).astype(np.uint8)

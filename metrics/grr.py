@@ -4,12 +4,10 @@ from skimage.color import rgb2gray
 
 def grr(color_img, gray_img):
     """
-    True Gradient Recall Ratio (GRR) / Gradient Energy Ratio
-    color_img: H x W x 3 RGB float image [0..1]
-    gray_img : H x W grayscale float image [0..1]
-
-    Returns:
-        GRR scalar in [0,1]
+    GRR: Gradient Recall Ratio
+    color_img: H x W x 3 float (0..1)
+    gray_img : H x W float (0..1)
+    returns: float value of ratio of preserved gradient energy from color to grayscale
     """
 
     # Ensure float
